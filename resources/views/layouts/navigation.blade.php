@@ -16,7 +16,13 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
                 </div>
-{{  }}
+
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('car.index')" :active="request()->routeIs('car.index')">
+                        {{ __('Mobil') }}
+                    </x-nav-link>
+                </div>
+
             </div>
 
             <!-- Settings Dropdown -->
