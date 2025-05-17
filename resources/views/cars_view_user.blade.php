@@ -8,7 +8,6 @@
 
             <div x-data="{ open: false }">
                 <x-primary-button @click="open = true">Tambah Mobil</x-primary-button>
-                <x-car-form />
             </div>
         </div>
     </x-slot>
@@ -21,7 +20,6 @@
                     <div class="grid grid-cols-1 gap-4 lg:grid-cols-4 lg:gap-x-4">
                         @foreach ($cars as $car)
                             <div x-data="{ open: false }">
-                                <x-car-form :car="$car" />
 
                                 <div
                                     class="rounded-xl border bg-white p-4 shadow-sm hover:shadow-md transition relative">
@@ -45,22 +43,11 @@
                                         </div>
                                     </div>
 
-                                    {{-- Tombol Edit --}}
-                                    <div class="absolute scale-[.8] origin-top-left top-0 left-0">
-                                        <x-secondary-button @click="open = true">Edit</x-secondary-button>
-                                    </div>
 
-                                    {{-- Tombol Hapus --}}
                                     <div class="absolute scale-[.8] origin-top-right top-0 right-0">
-                                        <form id="delete-car-{{ $car->id }}"
-                                            action="{{ route('cars.destroy', $car->id) }}" method="POST"
-                                            onsubmit="return confirm('Yakin hapus?')">
-                                            @csrf
-                                            @method('DELETE')
-                                            <x-danger-button type="submit">
-                                                Delete
-                                            </x-danger-button>
-                                        </form>
+                                        <x-primary-button type="submit">
+                                            Rental
+                                        </x-primary-button>
                                     </div>
                                 </div>
                             </div>
@@ -76,37 +63,37 @@
 
     <x-slot name="script">
         <script>
-            document.querySelectorAll('form[id^="carForm-"]').forEach(form => {
-                form.addEventListener('submit', async function(e) {
-                    e.preventDefault();
+            // document.querySelectorAll('form[id^="carForm-"]').forEach(form => {
+            //     form.addEventListener('submit', async function(e) {
+            //         e.preventDefault();
 
-                    const formData = new FormData(form);
-                    const csrf = form.querySelector('input[name="_token"]').value;
-                    const methodInput = form.querySelector('input[name="_method"]');
-                    const method = methodInput ? methodInput.value : 'POST';
+            //         const formData = new FormData(form);
+            //         const csrf = form.querySelector('input[name="_token"]').value;
+            //         const methodInput = form.querySelector('input[name="_method"]');
+            //         const method = methodInput ? methodInput.value : 'POST';
 
-                    try {
-                        const res = await fetch(form.action, {
-                            method: method,
-                            headers: {
-                                'X-CSRF-TOKEN': csrf
-                            },
-                            body: formData
-                        });
+            //         try {
+            //             const res = await fetch(form.action, {
+            //                 method: method,
+            //                 headers: {
+            //                     'X-CSRF-TOKEN': csrf
+            //                 },
+            //                 body: formData
+            //             });
 
-                        const data = await res.json();
+            //             const data = await res.json();
 
-                        if (data.status === 'success') {
-                            window.location.reload();
-                        } else {
-                            alert(data.message || 'Gagal menyimpan data.');
-                        }
-                    } catch (error) {
-                        console.error(error);
-                        alert('Terjadi kesalahan saat mengirim data.');
-                    }
-                });
-            });
+            //             if (data.status === 'success') {
+            //                 window.location.reload();
+            //             } else {
+            //                 alert(data.message || 'Gagal menyimpan data.');
+            //             }
+            //         } catch (error) {
+            //             console.error(error);
+            //             alert('Terjadi kesalahan saat mengirim data.');
+            //         }
+            //     });
+            // });
         </script>
     </x-slot>
 </x-app-layout>
