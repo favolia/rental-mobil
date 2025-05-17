@@ -10,8 +10,7 @@
 <?php $component->withAttributes([]); ?>
      <?php $__env->slot('header', null, []); ?> 
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            <?php echo e(__('Dashboard')); ?>
-
+            Dashboard
         </h2>
      <?php $__env->endSlot(); ?>
 
@@ -19,8 +18,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-                    <?php echo e(__("You're logged in!")); ?>
-
+                    You're logged in!
                 </div>
             </div>
         </div>

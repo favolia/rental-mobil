@@ -16,7 +16,7 @@ return new class extends Migration
             $table->date('tgl_booking');
             $table->date('tgl_mulai');
             $table->date('tgl_selesai');
-            $table->boolean('status_booking')->default(false);
+            $table->enum('status_booking', ['pending', 'booking', 'done'])->default('pending');
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('admin_id');
             $table->unsignedBigInteger('car_id');

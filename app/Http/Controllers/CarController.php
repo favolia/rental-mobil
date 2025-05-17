@@ -10,13 +10,11 @@ use Illuminate\Support\Facades\Auth;
 class CarController extends Controller
 {
     public function index() {
-        $cars = Car::latest()->get();
-        return view('admin.car_view', compact('cars'));
+        return view('admin.car_view');
     }
 
     public function user() {
-        $cars = Car::latest()->get();
-        return view('cars_view_user', compact('cars'));
+        return view('cars_view_user');
     }
 
     public function addCar(Request $request)

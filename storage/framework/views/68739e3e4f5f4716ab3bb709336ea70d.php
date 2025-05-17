@@ -1,3 +1,31 @@
+<?php
+    use App\Models\Car;
+
+    $cars = Car::query();
+
+    // Filter transmisi
+    if (request('transmission')) {
+        $cars->where('transmission', request('transmission'));
+    }
+
+    // Sortir
+    switch (request('sort')) {
+        case 'cost_asc':
+            $cars->orderBy('cost', 'asc');
+            break;
+        case 'cost_desc':
+            $cars->orderBy('cost', 'desc');
+            break;
+        case 'seat':
+            $cars->orderBy('seat');
+            break;
+        default:
+            $cars->latest();
+    }
+
+    $cars = $cars->latest()->get();
+?>
+
 <?php if (isset($component)) { $__componentOriginal9ac128a9029c0e4701924bd2d73d7f54 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal9ac128a9029c0e4701924bd2d73d7f54 = $attributes; } ?>
 <?php $component = App\View\Components\AppLayout::resolve([] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
@@ -11,13 +39,50 @@
      <?php $__env->slot('header', null, []); ?> 
         <div class="flex justify-between items-center">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                <?php echo e(__('Mobil')); ?>
-
+                Mobil
             </h2>
 
 
-            <div x-data="{ open: false }">
-                <?php if (isset($component)) { $__componentOriginald411d1792bd6cc877d687758b753742c = $component; } ?>
+            <div class="flex justify-center items-center gap-x-3">
+                <div>
+                    <form method="GET" class="flex flex-wrap items-center gap-4">
+                        <div>
+                            <label for="transmission" class="text-sm font-medium">Filter Transmisi:</label>
+                            <select name="transmission" id="transmission" onchange="this.form.submit()"
+                                class="border rounded-lg px-2 py-1">
+                                <option value="">Semua</option>
+                                <option value="manual" <?php echo e(request('transmission') === 'manual' ? 'selected' : ''); ?>>
+                                    Manual
+                                </option>
+                                <option value="semi_otomatis"
+                                    <?php echo e(request('transmission') === 'semi_otomatis' ? 'selected' : ''); ?>>Semi Otomatis
+                                </option>
+                                <option value="otomatis" <?php echo e(request('transmission') === 'otomatis' ? 'selected' : ''); ?>>
+                                    Otomatis
+                                </option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label for="sort" class="text-sm font-medium">Urutkan berdasarkan:</label>
+                            <select name="sort" id="sort" onchange="this.form.submit()"
+                                class="border rounded-lg px-2 py-1">
+                                <option value="">Default</option>
+                                <option value="cost_asc" <?php echo e(request('sort') === 'cost_asc' ? 'selected' : ''); ?>>Harga
+                                    Termurah
+                                </option>
+                                <option value="cost_desc" <?php echo e(request('sort') === 'cost_desc' ? 'selected' : ''); ?>>Harga
+                                    Termahal
+                                </option>
+                                <option value="seat" <?php echo e(request('sort') === 'seat' ? 'selected' : ''); ?>>Jumlah Kursi
+                                </option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+
+                <div x-data="{ open: false }">
+                    <?php if (isset($component)) { $__componentOriginald411d1792bd6cc877d687758b753742c = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginald411d1792bd6cc877d687758b753742c = $attributes; } ?>
 <?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.primary-button','data' => ['@click' => 'open = true']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
 <?php $component->withName('primary-button'); ?>
@@ -36,7 +101,7 @@
 <?php $component = $__componentOriginald411d1792bd6cc877d687758b753742c; ?>
 <?php unset($__componentOriginald411d1792bd6cc877d687758b753742c); ?>
 <?php endif; ?>
-                <?php if (isset($component)) { $__componentOriginal73f21ee0de1a0a5879eb8a8dfd555593 = $component; } ?>
+                    <?php if (isset($component)) { $__componentOriginal73f21ee0de1a0a5879eb8a8dfd555593 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal73f21ee0de1a0a5879eb8a8dfd555593 = $attributes; } ?>
 <?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.car-form','data' => []] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
 <?php $component->withName('car-form'); ?>
@@ -56,6 +121,7 @@
 <?php $component = $__componentOriginal73f21ee0de1a0a5879eb8a8dfd555593; ?>
 <?php unset($__componentOriginal73f21ee0de1a0a5879eb8a8dfd555593); ?>
 <?php endif; ?>
+                </div>
             </div>
         </div>
      <?php $__env->endSlot(); ?>
