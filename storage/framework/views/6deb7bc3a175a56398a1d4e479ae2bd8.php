@@ -87,7 +87,7 @@
                 <div class="p-6 text-gray-900">
 
                     <div class="grid grid-cols-1 gap-4 lg:grid-cols-4 lg:gap-x-4">
-                        <?php $__currentLoopData = $cars; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $car): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <?php $__empty_1 = true; $__currentLoopData = $cars; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $car): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
                             <a href="<?php echo e($car->status == 1 ? route('rent', $car->id) : '#'); ?>"
                                 class="<?php echo e($car->status == 1 ? 'opacity-100' : 'opacity-70 pointer-events-none'); ?>">
                                 <div class="pointer-events-none">
@@ -144,7 +144,9 @@
                                     </div>
                                 </div>
                             </a>
-                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
+                            Belum ada mobil rental yang tersedia.
+                        <?php endif; ?>
                     </div>
 
                 </div>

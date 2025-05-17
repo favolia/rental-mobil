@@ -34,7 +34,7 @@ unset($__defined_vars); ?>
     $method = 'POST';
 ?>
 
-<div x-show="open" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
+<div x-show="open" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm" x-cloak>
     <div @click.outside="open = false">
         <form id="<?php echo e($formId); ?>"
             class="rounded-xl border bg-white p-4 shadow-sm hover:shadow-md transition flex flex-col justify-start items-start w-[25rem]"
@@ -235,11 +235,12 @@ unset($__defined_vars); ?>
                 
                 <div class="flex items-center space-x-2">
                     <input id="<?php echo e($formId); ?>-status" name="status" type="checkbox" value="1"
-                        <?php echo e(isset($car) && $car->status ? 'checked' : ''); ?>
+                        <?php echo e((isset($car) && $car->status) || !isset($car) ? 'checked' : ''); ?>
 
                         class="rounded border-gray-300 text-green-600 shadow-sm focus:ring-green-500">
                     <label for="<?php echo e($formId); ?>-status" class="text-sm text-gray-700">Aktif</label>
                 </div>
+
 
                 <?php if (isset($component)) { $__componentOriginald411d1792bd6cc877d687758b753742c = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginald411d1792bd6cc877d687758b753742c = $attributes; } ?>

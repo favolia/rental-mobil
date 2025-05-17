@@ -78,7 +78,7 @@
                 <div class="p-6 text-gray-900">
 
                     <div class="grid grid-cols-1 gap-4 lg:grid-cols-4 lg:gap-x-4">
-                        @foreach ($cars as $car)
+                        @forelse ($cars as $car)
                             <a href="{{ $car->status == 1 ? route('rent', $car->id) : '#' }}"
                                 class="{{ $car->status == 1 ? 'opacity-100' : 'opacity-70 pointer-events-none' }}">
                                 <div class="pointer-events-none">
@@ -117,7 +117,9 @@
                                     </div>
                                 </div>
                             </a>
-                        @endforeach
+                        @empty
+                            Belum ada mobil rental yang tersedia.
+                        @endforelse
                     </div>
 
                 </div>

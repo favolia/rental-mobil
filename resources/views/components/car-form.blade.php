@@ -6,7 +6,7 @@
     $method = 'POST';
 @endphp
 
-<div x-show="open" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
+<div x-show="open" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm" x-cloak>
     <div @click.outside="open = false">
         <form id="{{ $formId }}"
             class="rounded-xl border bg-white p-4 shadow-sm hover:shadow-md transition flex flex-col justify-start items-start w-[25rem]"
@@ -75,10 +75,11 @@
                 {{-- Checkbox Status --}}
                 <div class="flex items-center space-x-2">
                     <input id="{{ $formId }}-status" name="status" type="checkbox" value="1"
-                        {{ isset($car) && $car->status ? 'checked' : '' }}
+                        {{ (isset($car) && $car->status) || !isset($car) ? 'checked' : '' }}
                         class="rounded border-gray-300 text-green-600 shadow-sm focus:ring-green-500">
                     <label for="{{ $formId }}-status" class="text-sm text-gray-700">Aktif</label>
                 </div>
+
 
                 <x-primary-button class="w-full justify-center items-center">
                     {{ $car ? 'Update' : 'Submit' }}

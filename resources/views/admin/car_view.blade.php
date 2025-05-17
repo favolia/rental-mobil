@@ -86,7 +86,7 @@
                 <div class="p-6 text-gray-900">
 
                     <div class="grid grid-cols-1 gap-4 lg:grid-cols-4 lg:gap-x-4">
-                        @foreach ($cars as $car)
+                        @forelse ($cars as $car)
                             <div x-data="{ open: false }">
                                 <x-car-form :car="$car" />
 
@@ -131,7 +131,9 @@
                                     </div>
                                 </div>
                             </div>
-                        @endforeach
+                        @empty
+                            Belum ada mobil rental yang tersedia.
+                        @endforelse
                     </div>
 
                 </div>
