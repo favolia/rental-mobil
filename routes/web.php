@@ -29,6 +29,10 @@ Route::controller(BookingController::class)->group(function () {
     Route::get('/cars/rent/{id}', 'index')->name('rent');
     Route::post('/cars/rent/store/{id}', 'storeBooking')->name('rent.store');
     Route::get('/booking-list', 'viewBooking')->name('booking.list');
+    Route::delete('/booking-delete/{id}', 'deleteBooking')->name('booking.delete');
+
+    Route::get('/report', 'viewReport')->name('report');
+    Route::post('/booking-pay/{id}', 'payBooking')->name('pay.booking');
 });
 
 Route::middleware('auth')->group(function () {
